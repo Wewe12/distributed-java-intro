@@ -5,6 +5,7 @@ public class CountingTask implements Runnable {
     private final Counter counter;
     private final int numberOfIterations;
 
+
     public CountingTask(Counter counter, int numberOfIterations) {
         this.counter = counter;
         this.numberOfIterations = numberOfIterations;
@@ -16,4 +17,5 @@ public class CountingTask implements Runnable {
             counter.increment();
         }
     }
+
 }
