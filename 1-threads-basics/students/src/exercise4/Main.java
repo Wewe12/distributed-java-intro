@@ -8,5 +8,10 @@ public class Main {
     public static void main(String[] args) {
         ExecutorService executor = Executors.newFixedThreadPool(4);
 
+        for (int i = 0; i < 4; i++){
+            executor.execute(new MyRunnable());
+        }
+        executor.shutdown();
+
     }
 }
