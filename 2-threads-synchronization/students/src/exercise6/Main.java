@@ -17,10 +17,14 @@ public class Main {
 
         ExecutorService executors = Executors.newCachedThreadPool();
         executors.execute(new LeftHandedPainter(paint, brush));
+
         executors.execute(new RightHandedPainter(paint, brush));
+
 
         executors.shutdown();
         executors.awaitTermination(10, TimeUnit.SECONDS);
+
+
         if (!executors.isTerminated()) {
             System.out.println("Some threads did not finish in 10 seconds!");
             System.out.println("Probably you have a deadlock in your code!");

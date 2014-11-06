@@ -26,20 +26,25 @@ public class SayMain {
         - set producer delivery mode to non persistent (DeliveryMode.NON_PERSISTENT);
          */
 
-        Connection connection = null;
-        Session session = null;
-        Destination queue = null;
-        MessageProducer producer = null;
+        Connection connection = connectionFactory.createConnection();
+        Session session = connection.createSession(false,Session.AUTO_ACKNOWLEDGE);
+        Destination queue = session.createQueue("SayHelloQueue");
+        MessageProducer producer = session.createProducer(queue);
+
+        producer.setDeliveryMode(DeliveryMode.NON_PERSISTENT );
 
 
         connection.start();
 
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
 
-        String text = "";
-        while (!text.equalsIgnoreCase(EXIT)) {
+        String in = "";
+        while (!in.equalsIgnoreCase(EXIT)) {
+
             System.out.print("Say hello to:");
-            text = bufferedReader.readLine();
+            in = bufferedReader.readLine();
+            TextMessage message = session.createTextMessage(in);
+            producer.send(message);
 
             //Create TextMessage from session with text variable
             //Send this message to queue (use producer for that)
@@ -50,3 +55,4 @@ public class SayMain {
         connection.close();
     }
 }
+

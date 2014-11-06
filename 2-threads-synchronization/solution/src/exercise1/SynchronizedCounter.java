@@ -7,7 +7,7 @@ public class SynchronizedCounter implements Counter {
     private long value = 0;
 
     @Override
-    public synchronized void increment() {
+    public void increment() {
         value += 1;
     }
 

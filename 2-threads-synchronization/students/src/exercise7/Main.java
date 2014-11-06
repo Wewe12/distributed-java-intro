@@ -19,5 +19,7 @@ public class Main {
         }
         executors.shutdown();
         executors.awaitTermination(30, TimeUnit.SECONDS);
+
+        System.out.println("Finished");
     }
 }

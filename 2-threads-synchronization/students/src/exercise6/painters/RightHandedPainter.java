@@ -12,13 +12,16 @@ public class RightHandedPainter extends Painter {
     @Override
     public void run() {
         try {
-            synchronized (brush) {
+
+            synchronized (paint) {
+                String takenPaint = paint.takePaint();
+                Thread.sleep(100);
+
+
+                synchronized (brush) {
                 String takenBrush = brush.takeBrush();
                 Thread.sleep(100);
 
-                synchronized (paint) {
-                    String takenPaint = paint.takePaint();
-                    Thread.sleep(100);
 
                     System.out.printf("Right hand painter painting with %s and %s\n", takenPaint, takenBrush);
                 }

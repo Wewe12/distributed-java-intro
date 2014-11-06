@@ -17,6 +17,8 @@ public class Painter implements Runnable {
 
     @Override
     public void run() {
+
+
         String paint = null;
         String brush = null;
 

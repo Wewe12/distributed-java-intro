@@ -16,7 +16,7 @@ public class LockingCounter implements Counter {
         try {
             value += 1;
         } finally {
-            lock.unlock();
+           lock.unlock();
         }
     }
 

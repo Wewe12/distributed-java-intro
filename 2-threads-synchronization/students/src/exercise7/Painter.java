@@ -15,19 +15,21 @@ public class Painter implements Runnable {
 
     @Override
     public void run() {
-        try {
-            paints.takePaint();
-            Thread.sleep(100);
-            brushes.takeBrush();
-            Thread.sleep(100);
 
-            System.out.println("Painter " + Thread.currentThread().getName() + " is painting!");
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } finally {
-            paints.returnPaint();
-            brushes.returnBrush();
-        }
+            try {
+                paints.takePaint();
+                Thread.sleep(100);
+                brushes.takeBrush();
+                Thread.sleep(100);
+
+                System.out.println("Painter " + Thread.currentThread().getName() + " is painting!");
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } finally {
+                paints.returnPaint();
+                brushes.returnBrush();
+            }
+
     }
 }

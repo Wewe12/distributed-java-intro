@@ -7,7 +7,6 @@ import javax.jms.*;
 public class HelloMain {
     public static void main(String[] args) throws JMSException {
         ConnectionFactory connectionFactory = new ActiveMQConnectionFactory("tcp://localhost:61616");
-
         /*
         Create Connection instance from ConnectionFactory
 
@@ -21,12 +20,10 @@ public class HelloMain {
         Create Destination topic instance from session (check Session class and createTopic method)
         - topic name should be "SayHelloTopic"
          */
-
-        Connection connection = null;
-        Session session = null;
-        Destination queue = null;
-        MessageConsumer consumer = null;
-
+        Connection connection = connectionFactory.createConnection();
+        Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
+        Destination queue = session.createQueue("SayHelloQueue");
+        MessageConsumer consumer = session.createConsumer(queue);
         /*
         Create MessageConsumer instance from session (check Session class and createConsumer method)
 
@@ -36,15 +33,25 @@ public class HelloMain {
         - print message text to sysout
         - don't forget to handle JMSException
          */
-        MessageListener helloListener = new MessageListener() {
+        MessageListener listener = new MessageListener() {
             @Override
             public void onMessage(Message message) {
-                throw new UnsupportedOperationException();
+                if (message instanceof TextMessage) {
+                    TextMessage textMessage = (TextMessage) message;
+                    try {
+                        String text = textMessage.getText();
+                        System.out.println("[" + Thread.currentThread().getName() + "]");
+
+                    } catch (JMSException ex) {
+                        ex.printStackTrace();
+                    }
+
+                }
             }
-        };
+            //Set MessageListener implementation as a message listener in MessageConsumer
+            consumer.setMessageListener(listener);
 
-        //Set MessageListener implementation as a message listener in MessageConsumer
-
-        connection.start();
+            connection.start();
+        }
     }
 }
