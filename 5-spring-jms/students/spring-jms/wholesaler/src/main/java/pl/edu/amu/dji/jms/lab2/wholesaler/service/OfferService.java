@@ -1,8 +1,9 @@
 package pl.edu.amu.dji.jms.lab2.wholesaler.service;
 
 import org.springframework.jms.core.JmsTemplate;
+import org.springframework.jms.core.MessageCreator;
 
-import javax.jms.Destination;
+import javax.jms.*;
 
 public class OfferService {
 
@@ -11,6 +12,8 @@ public class OfferService {
     private Destination offerTopic;
 
     private Destination orderQueue;
+
+
 
     public void setJmsTemplate(JmsTemplate jmsTemplate) {
         this.jmsTemplate = jmsTemplate;
@@ -24,7 +27,36 @@ public class OfferService {
         this.orderQueue = orderQueue;
     }
 
-    public void sendOffer(final Double price) {
+    public void sendOffer( final Double price ) {
+
         throw new UnsupportedOperationException();
+
+        jmsTemplate.send(offerTopic, new MessageCreator() {
+            @Override
+            public Message createMessage(Session session) throws JMSException {
+                try{
+                    MapMessage message =
+
+
+
+                    return message;
+                }
+
+
+
+                return null;
+            }
+        });
+
+
     }
+
+
+
+
+
+
+
+
+
 }
