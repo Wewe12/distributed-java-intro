@@ -29,6 +29,7 @@ public class OfferService {
         jmsTemplate.send(offerTopic, new MessageCreator() {
             @Override
             public Message createMessage(Session session) throws JMSException {
+
                 MapMessage message = session.createMapMessage();
                 message.setDouble("price", price);
                 message.setJMSReplyTo(orderQueue);

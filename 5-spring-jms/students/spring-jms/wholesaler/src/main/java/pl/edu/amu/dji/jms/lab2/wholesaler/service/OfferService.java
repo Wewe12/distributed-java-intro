@@ -29,34 +29,18 @@ public class OfferService {
 
     public void sendOffer( final Double price ) {
 
-        throw new UnsupportedOperationException();
-
         jmsTemplate.send(offerTopic, new MessageCreator() {
             @Override
             public Message createMessage(Session session) throws JMSException {
-                try{
-                    MapMessage message =
+
+                MapMessage message = session.createMapMessage();
 
 
-
-                    return message;
-                }
-
-
-
-                return null;
+            return message;
             }
+
+
         });
 
-
     }
-
-
-
-
-
-
-
-
-
-}
+    }
